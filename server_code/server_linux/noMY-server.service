@@ -1,0 +1,35 @@
+# NoMY 服务管理后台 systemd 服务模板（Linux）
+#
+# 安装步骤（假设部署在 /opt/NoMY/server_linux/，按实际路径修改下方 ExecStart/User/WorkingDirectory）：
+#   1. sudo cp noMY-server.service /etc/systemd/system/
+#   2. sudo systemctl daemon-reload
+#   3. sudo systemctl enable --now noMY-server
+#
+# 查看状态/日志：
+#   systemctl status noMY-server
+#   journalctl -u noMY-server -f
+#
+# 建议先创建专用系统用户（非 root 运行）：
+#   sudo useradd -r -s /usr/sbin/nologin noMY
+#   sudo chown -R noMY:noMY /opt/NoMY
+
+[Unit]
+Description=NoMY server (auth + chat + update distribution)
+After=network.target
+
+[Service]
+Type=simple
+# ↓ 按实际部署路径修改
+WorkingDirectory=/opt/NoMY/server_linux
+ExecStart=/usr/bin/python3 /opt/NoMY/server_linux/distribute_server.py --port 18888
+User=noMY
+Group=noMY
+Restart=on-failure
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+
+# 可选：追加服务参数，例如指定安装包与日志文件
+# ExecStart=/usr/bin/python3 /opt/NoMY/server_linux/distribute_server.py --port 18888 --package /opt/NoMY/setup.exe --log-file /opt/NoMY/server_linux/server.log
+
+[Install]
+WantedBy=multi-user.target

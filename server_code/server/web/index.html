@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NoMY — 软件信息与下载</title>
+<style>
+  :root {
+    --theme: #009faa;
+    --theme-dark: #006a70;
+    --bg: #f3f6f9;
+    --card: #ffffff;
+    --text: #1f2733;
+    --text-sub: #6b7686;
+    --border: #e3e8ee;
+    --danger: #d94848;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+  }
+  .hero {
+    width: 100%; padding: 56px 16px 40px; text-align: center; color: #fff;
+    background: linear-gradient(135deg, var(--theme) 0%, var(--theme-dark) 100%);
+  }
+  .hero h1 { font-size: 40px; letter-spacing: 2px; }
+  .hero p { margin-top: 10px; font-size: 15px; opacity: .88; }
+  .wrap { width: 100%; max-width: 760px; padding: 28px 16px 48px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 24px 26px; margin-bottom: 18px;
+    box-shadow: 0 2px 10px rgba(31, 51, 73, .05);
+  }
+  .card h2 { font-size: 17px; margin-bottom: 14px; color: var(--theme-dark); }
+  .row { display: flex; padding: 7px 0; font-size: 14px; line-height: 1.7; }
+  .row .k { width: 96px; flex: none; color: var(--text-sub); }
+  .row .v { flex: 1; word-break: break-all; }
+  .btn {
+    display: inline-block; border: none; cursor: pointer; text-decoration: none;
+    font-size: 15px; color: #fff; background: var(--theme);
+    padding: 11px 34px; border-radius: 8px; transition: background .2s;
+  }
+  .btn:hover { background: var(--theme-dark); }
+  .btn.disabled {
+    background: #b8c2cc; cursor: not-allowed;
+  }
+  .tip { margin-top: 12px; font-size: 13px; color: var(--text-sub); line-height: 1.7; }
+  .error-box {
+    background: #fdf0f0; border: 1px solid #f3c9c9; color: var(--danger);
+    border-radius: 8px; padding: 12px 16px; font-size: 14px; margin-top: 14px;
+    display: none;
+  }
+  .footer { color: var(--text-sub); font-size: 12px; padding-bottom: 30px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>NoMY</h1>
+  <p>桌面应用 · 服务器信息展示页</p>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h2>软件信息</h2>
+    <div class="row"><span class="k">软件名称</span><span class="v">NoMY</span></div>
+    <div class="row"><span class="k">运行环境</span><span class="v">Windows · Python / PySide6</span></div>
+    <div class="row"><span class="k">功能简介</span><span class="v">
+      AiChat 对话、备忘录、启动器、好友聊天、朋友圈、图片工坊、音乐播放器、
+      视频播放器、电脑配置、壁纸设置、插件系统等。
+    </span></div>
+    <div id="server-error" class="error-box">服务器异常：无法获取软件版本信息，请稍后重试或联系服务器管理员。</div>
+  </div>
+
+  <div class="card">
+    <h2>版本与下载</h2>
+    <div class="row"><span class="k">最新版本</span><span class="v" id="info-version">获取中…</span></div>
+    <div class="row"><span class="k">更新说明</span><span class="v" id="info-notes">—</span></div>
+    <div class="row"><span class="k">安装包</span><span class="v" id="info-package">—</span></div>
+    <div class="row"><span class="k">包大小</span><span class="v" id="info-size">—</span></div>
+    <div style="margin-top: 18px;">
+      <button class="btn" id="download-btn" disabled>下载安装包</button>
+    </div>
+    <div class="tip">
+      点击「下载安装包」将从本服务器下载最新安装程序；服务器上未放置安装包时无法下载。
+      客户端也可在「设置 → 版本更新」中检查并自动更新。
+    </div>
+  </div>
+</div>
+
+<div class="footer">NoMY · 局域网服务管理后台</div>
+
+<script>
+(function () {
+  var btn = document.getElementById("download-btn");
+  var fmtSize = function (n) {
+    if (!n || n <= 0) return "—";
+    var mb = n / 1024 / 1024;
+    return mb >= 1024 ? (mb / 1024).toFixed(2) + " GB" : mb.toFixed(2) + " MB";
+  };
+  fetch("/api/update/check")
+    .then(function (r) {
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    })
+    .then(function (info) {
+      if (info && info.error) throw new Error(info.error);
+      document.getElementById("info-version").textContent = info.version || "未知";
+      document.getElementById("info-notes").textContent =
+        info.info || info.app_info || "—";
+      document.getElementById("info-package").textContent =
+        info.package || "（服务器未放置安装包）";
+      document.getElementById("info-size").textContent = fmtSize(info.package_size);
+      if (info.has_package) {
+        btn.disabled = false;
+        btn.onclick = function () { window.location.href = "/api/update/download"; };
+      } else {
+        btn.disabled = true;
+        btn.textContent = "暂无安装包可下载";
+      }
+    })
+    .catch(function () {
+      document.getElementById("info-version").textContent = "获取失败";
+      document.getElementById("server-error").style.display = "block";
+      btn.disabled = true;
+      btn.textContent = "服务器异常，无法下载";
+    });
+})();
+</script>
+</body>
+</html>

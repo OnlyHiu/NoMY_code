@@ -1,0 +1,46 @@
+{
+    "MenuShow": {
+        "AiChat": true,
+        "备忘录": true,
+        "启动器": true,
+        "图片工坊": true,
+        "朋友圈": true,
+        "音乐播放器": true,
+        "好友": true,
+        "电脑配置": true,
+        "视频播放器": true,
+        "壁纸设置": true,
+        "MenuOrder": "[\"P2PNWT\", \"MOMENTS\", \"AICHAT\", \"DIAINFO\", \"IMGSTUDIO\", \"MUSIC\", \"VIDEO\", \"SYSINFO\", \"WALLPAPER\", \"EXTEND\"]",
+        "MenuParent": ""
+    },
+    "windowSystem": {
+        "AppWindowSize": "1000x780",
+        "Turn off the bar": false,
+        "windowExit": "退出程序"
+    },
+    "Auth": {
+        "Avatar": "",
+        "DisplayName": "",
+        "Email": "",
+        "Remember": true,
+        "Token": "",
+        "UserId": "",
+        "Username": ""
+    },
+    "QFluentWidgets": {
+        "FontFamilies": [
+            "Segoe UI",
+            "Microsoft YaHei",
+            "PingFang SC"
+        ],
+        "ThemeColor": "#ff009faa",
+        "ThemeMode": "Light"
+    },
+    "Update": {
+        "AutoInstall": true,
+        "DownloadDir": "./update"
+    },
+    "Wallpaper": {
+        "Folder": ""
+    }
+}

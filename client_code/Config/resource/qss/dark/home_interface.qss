@@ -1,0 +1,29 @@
+SettingInterface,
+#view {
+    background-color: transparent;
+}
+
+QScrollArea {
+    border: none;
+    background-color: transparent;
+}
+
+BannerWidget > #galleryLabel {
+    font: 42px 'Segoe UI SemiBold', 'Microsoft YaHei SemiBold';
+    background-color: transparent;
+    color: white;
+    padding-left: 28px;
+}
+#cardScrollWidget {
+    background-color: transparent;
+}
+
+QScrollArea#cardScrollArea {
+    border: none;
+    background-color: transparent;
+}
+
+#cardToolBar {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}

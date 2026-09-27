@@ -1,0 +1,257 @@
+# ============================================================
+# NoMY 项目 .gitignore
+# 适用于：Python + PySide6 桌面应用（Windows 平台）
+# ============================================================
+
+# ────────────────────────────────────────────────────────────
+# 1. Python 编译产物 / 缓存
+# ────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+*.egg
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# ────────────────────────────────────────────────────────────
+# 2. 虚拟环境（绝对不要提交！）
+# ────────────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# ────────────────────────────────────────────────────────────
+# 3. IDE 与编辑器
+# ────────────────────────────────────────────────────────────
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Eclipse / NetBeans
+.project
+.classpath
+.settings/
+
+# Vim / Emacs / Sublime
+*.swp
+*.swo
+*~
+.*.sw[a-p]
+*.un~
+*Sublime*
+
+# ────────────────────────────────────────────────────────────
+# 4. 操作系统垃圾文件
+# ────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Windows 终端
+*.lnk
+
+# ────────────────────────────────────────────────────────────
+# 5. 构建 / 打包产物
+# ────────────────────────────────────────────────────────────
+build/
+dist/
+*.spec
+*.exe
+*.msi
+*.dmg
+*.deb
+*.rpm
+*.AppImage
+*.whl
+*.tar.gz
+*.zip
+
+# PyInstaller
+*.manifest
+*.spec
+
+# ────────────────────────────────────────────────────────────
+# 6. 日志与运行时文件
+# ────────────────────────────────────────────────────────────
+*.log
+*.pid
+*.lock
+*.tmp
+*.temp
+logs/
+LOG/
+client_code/LOG/
+server_code/server/LOG/
+server_code/server_linux/LOG/
+
+# ────────────────────────────────────────────────────────────
+# 7. ⚠️ 安全敏感：密钥、加密材料（绝对禁止上传）
+# ────────────────────────────────────────────────────────────
+# 服务端加密密钥
+secret.key
+*.key
+*.pem
+*.p12
+*.pfx
+
+# 环境变量 / API Token
+.env
+.env.local
+.env.*.local
+*.env
+
+# ────────────────────────────────────────────────────────────
+# 8. 用户数据（隐私内容，绝不入库）
+# ────────────────────────────────────────────────────────────
+# 聊天记录
+chat_histories/
+client_code/chat_histories/
+**/chat_histories/
+
+# 备忘录
+MemoInfo/
+client_code/MemoInfo/
+
+# 用户图片(隐私内容不入库;但 Config/image/ 是程序图标资源,见第 9 节)
+image/
+client_code/image/
+# 例外:Config 下的 image 是程序图标资源,需入库
+!client_code/Config/image/
+!client_code/Config/image/**
+
+# 历史路径缓存
+HistoryPath/
+client_code/HistoryPath/
+
+# 朋友圈数据
+moments/
+**/moments/
+
+# 朋友数据
+friends/
+**/friends/
+
+# 用户资源(隐私内容不入库;但 Config/resource/ 是程序主题样式 QSS,见第 9 节)
+resource/
+client_code/resource/
+# 例外:Config 下的 resource 是程序 QSS 主题样式,需入库
+!client_code/Config/resource/
+!client_code/Config/resource/**
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+*.dat
+server_data/
+
+# ────────────────────────────────────────────────────────────
+# 9. 客户端配置（保留示例 + 项目必需文件，忽略含用户数据的文件）
+# ────────────────────────────────────────────────────────────
+# 9.1 显式忽略含敏感信息的用户配置（绝对不入库）
+client_code/Config/Aisetting.json
+client_code/Config/NetConfig.json
+# 注意:config.json 是程序启动配置（敏感字段已清空占位），自然入库，无须 ! 反选
+
+# 9.2 显式忽略用户运行时数据
+client_code/Config/VideoPlaylist.json
+client_code/Config/DigInfo/
+
+# 9.3 入库 .example 模板（供用户 clone 后复制改名）
+!client_code/Config/*.example
+
+# 9.4 项目运行必需的 .ini / .json（无隐私，可入库）
+!client_code/Config/Text.ini
+!client_code/Config/Version.ini
+!client_code/Config/Default_info.json
+!client_code/Config/ExtendedCallScript.json
+
+# 9.5 兼容：.gitkeep 文件
+!client_code/Config/.gitkeep
+
+# 服务端配置
+server_code/server/config*.ini
+server_code/server/*.db
+server_code/server/server_data/
+server_code/server_linux/config*.ini
+server_code/server_linux/*.db
+server_code/server_linux/server_data/
+
+# ────────────────────────────────────────────────────────────
+# 10. 截图与导出
+# ────────────────────────────────────────────────────────────
+Screenshots/
+client_code/Screenshots/
+server_code/server/Screenshots/
+*.png.bak
+
+# ────────────────────────────────────────────────────────────
+# 11. 第三方包与扩展
+# ────────────────────────────────────────────────────────────
+# 浏览器扩展（Edge / Chrome 用户数据残留）
+Extensions/
+**/Extensions/
+
+# PyPI 缓存
+pip-cache/
+.pip/
+
+# ────────────────────────────────────────────────────────────
+# 12. 备份与归档
+# ────────────────────────────────────────────────────────────
+*.bak
+*.backup
+*.orig
+*.rej
+*.swp
+*~
+
+# 旧目录
+/shelf/
+/workspace.xml
+/httpRequests/
+
+# ────────────────────────────────────────────────────────────
+# 13. 临时测试文件（开发时残留）
+# ────────────────────────────────────────────────────────────
+_temp_subs/
+temp_*.py
+test_*.py
+debug_*.py
+*.test.py
+
+# ────────────────────────────────────────────────────────────
+# 14. 文档生成
+# ────────────────────────────────────────────────────────────
+docs/_build/
+site/
+
+# ────────────────────────────────────────────────────────────
+# 15. 大型资源（按需取消注释）
+# ────────────────────────────────────────────────────────────
+# 如果仓库不打算打包字体/图标等大型资源，取消下一行注释
+# client_code/resource/fonts/
+# client_code/resource/icons/
