@@ -66,7 +66,7 @@ echo [Nuitka] ¿ªÊ¼´ò°üÃüÁîÐÐ°æ·þÎñ¶Ë distribute_server.py£¨Ê×´Î±àÒëÐèÊý·ÖÖÓ£©...
     --product-name=NoMY-server ^
     --file-version=1.0.0.0 ^
     --product-version=1.0.0.0 ^
-    --windows-icon-from-ico=..\Config\image\menu.ico ^
+    --windows-icon-from-ico=..\..\client_code\Config\image\menu.ico ^
     --include-data-dir=web=web ^
     --noinclude-dlls=Qt63D* ^
     --noinclude-dlls=Qt6Quick3D* ^
@@ -113,8 +113,8 @@ echo [Nuitka] ¿ªÊ¼´ò°üÍ¼ÐÎ¹ÜÀíºóÌ¨ distribute_server_gui.py£¨PySide6 ÌåÁ¿´ó£¬ºÄÊ
     --product-name=NoMY-ServerGUI ^
     --file-version=1.0.0.0 ^
     --product-version=1.0.0.0 ^
-    --windows-icon-from-ico=..\Config\image\menu.ico ^
-    --include-data-file=..\Config\image\menu.ico=Config\image\menu.ico ^
+    --windows-icon-from-ico=..\..\client_code\Config\image\menu.ico ^
+    --include-data-file=..\..\client_code\Config\image\menu.ico=Config\image\menu.ico ^
     --noinclude-dlls=Qt63D* ^
     --noinclude-dlls=Qt6Quick3D* ^
     --noinclude-dlls=Qt6WebEngine* ^
@@ -147,13 +147,13 @@ goto copy_config
 
 :copy_config
 rem ¸½´ø°æ±¾ÐÅÏ¢ÎÄ¼þ£¨exe »áÔÚËùÔÚÄ¿Â¼×Ô¶¯²éÕÒ Config\Version.ini£©
-if not exist "..\Config\Version.ini" goto done
+if not exist "..\..\client_code\Config\Version.ini" goto done
 if /i "%MODE%"=="gui" (
     if not exist "dist\NoMY-ServerGUI\Config" mkdir "dist\NoMY-ServerGUI\Config"
-    copy /y "..\Config\Version.ini" "dist\NoMY-ServerGUI\Config\Version.ini" >nul
+    copy /y "..\..\client_code\Config\Version.ini" "dist\NoMY-ServerGUI\Config\Version.ini" >nul
 ) else (
     if not exist "dist\NoMY-server\Config" mkdir "dist\NoMY-server\Config"
-    copy /y "..\Config\Version.ini" "dist\NoMY-server\Config\Version.ini" >nul
+    copy /y "..\..\client_code\Config\Version.ini" "dist\NoMY-server\Config\Version.ini" >nul
 )
 echo [Íê³É] ÒÑ¸½´ø°æ±¾ÐÅÏ¢ÎÄ¼þ
 
